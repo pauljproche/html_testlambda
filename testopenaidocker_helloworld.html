@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lambda Function Frontend</title>
+</head>
+<body>
+    <h1>AWS Lambda Function Test</h1>
+    <button id="invokeButton">Invoke Lambda Function</button>
+
+    <script>
+        document.getElementById('invokeButton').addEventListener('click', function() {
+            const apiGatewayUrl = 'https://ewj8z6hrvl.execute-api.us-east-1.amazonaws.com/default/withDockerOpenAIFunction';
+                                //'https://ewj8z6hrvl.execute-api.us-east-1.amazonaws.com/default/withDockerOpenAIFunction';
+            
+            function callLambdaFunction(data) {
+                fetch(apiGatewayUrl, {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: { 'Content-Type': 'application/json'}
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    alert('Lambda Function Response: ' + JSON.stringify(data));
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('An error occurred: ' + error.message);
+                });
+            }
+
+            // Example data to send, adjust as necessary for your function's needs
+            const dataToSend = { key: 'value' };
+            callLambdaFunction(dataToSend);
+        });
+    </script>
+</body>
+</html>
